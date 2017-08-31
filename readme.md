@@ -2,48 +2,63 @@
 
 This is a Node.js sample code to send and get a message to and from ARTIK Cloud using the [ARTIK Cloud Javascript SDK](https://github.com/artikcloud/artikcloud-js)
 
-### Prerequisites
+## Requirements
 * [Node.js](https://nodejs.org/en/) 
 * [npm](https://www.npmjs.com/get-npm) (Installed with Node.js)
 * [ARTIK Cloud Javascript SDK](https://github.com/artikcloud/artikcloud-js)
 
-### Setup / Installation:
-
-Check you have Node.js installed:
+Run the following commands to make check Node.js and npm are installed:
 
 ```
-node -v
+$ node -v
+v6.5.0
 ```
 
-Check you have npm installed:
-
 ```
-npm -v
+$ npm -v
+3.10.3
 ```
 
-Setup ARTIK Cloud:
+## Setup
 
-  1. Sign into [My ARTIK Cloud](https://artik.cloud/)
-  2. [Connect a new device](https://my.artik.cloud/new_device/cloud.artik.sample.demofiresensor?device_name=Demo+Fire+Sensor) by adding the [Demo Fire Sensor](https://my.artik.cloud/new_device/cloud.artik.sample.demofiresensor?device_name=Demo+Fire+Sensor) into your account.
-  3. Click the Settings icon of the device you just added.  Note the **device ID** and **device token** for later. Click "Generate Device Token" if needed.
+#### **Setup at ARTIK Cloud:**
+
+1. Sign into [My ARTIK Cloud](https://artik.cloud/)
+2. [Connect a new device](https://my.artik.cloud/new_device/cloud.artik.sample.demofiresensor?device_name=Demo+Fire+Sensor) and add the [Demo Fire Sensor](https://my.artik.cloud/new_device/cloud.artik.sample.demofiresensor?device_name=Demo+Fire+Sensor) into your account.
+3. Click the Settings icon of the device you just added.  Note the **device ID** and **device token** for later. Click "Generate Device Token" if needed.
 
 
-Setup Code:
+#### **Setup project**:
 
-  1. Add your **device ID** and **device token** to the config.json file.
-  2. Install the artikcloud-js library by typing the following command:
+Before running the sample, fill in the following into your the `config.json` file:
+
+```son
+{
+    "device_id": "YOUR_DEVICE_ID",
+    "device_token": "YOUR_DEVICE_TOKEN"
+}
+```
+
+#### **Install dependencies:**
 
  ```javascript
- npm install artikcloud-js --save
+$ npm install artikcloud-js --save
  ```
 
+#### **Run project:**
 
-## Run the code
+```
+$ node send-message.js
+```
 
-Run `send-message.js` file to send a message to your device.   This will send a random temperature value to ARTIK Cloud on behalf of the device.  
+## Demo
+
+#### 1. Send a message
+
+   Run `send-message.js` to send a message to ARTIK Cloud from the device.   In this sample, each message will send a random temperature value.
 
 ```javascript
-%> node send-message.js
+$ node send-message.js
 
 > Making API call with data: 
 {"data":{"temp":"50.4"},"sdid":"a12345f ..."}
@@ -52,26 +67,25 @@ Run `send-message.js` file to send a message to your device.   This will send a 
 If sending goes well, you receive a response with a message id (mid).   ARTIK Cloud uses this response to acknowledge the receipt of the message as shown below.
 
 ```javascript
-// < API Response:
-{ 
-  "data": {
-    "mid": "a9b4982c708540cd9742adddef902c15"
-  }
-}
+{ "data": { "mid": "a9b4982c708540cd9742adddef902c15"}}
 ```
 
-Run `get-message.js` to get the last message sent to your device.
+#### 2. Get a message
+
+   Run `get-message.js` to get the last message sent by your device.
 
 
 ```javascript
-%> node get-message.js
+$ node get-message.js
 
 > Making API call with data:
 {"count":1,"sdids":"a12345f ..."}
 ```
 
+Below is the response. It has a 'temp' value of 50.4 that was sent earlier.
+
+
 ```javascript
-// < API Response:
 { 
   "count": 1,
   "size": 1,
@@ -85,7 +99,7 @@ Run `get-message.js` to get the last message sent to your device.
       "uid": "u12345f ... ",
       "mv": 1,
       "data": {
-        "temp": 10
+        "temp": 50.4
       }
     }
   ],
@@ -93,12 +107,11 @@ Run `get-message.js` to get the last message sent to your device.
 }
 ```
 
-Note above there is a **temp** value that was sent to the device earlier.
 
+#### 3. View your data in My ARTIK Cloud
 
-## View your data in My ARTIK Cloud
-
-Have you visited ARTIK Cloud [data visualization tool](https://artik.cloud/my/data)?  Select your device from the charts to view your device data in realtime. 
+- Visit the [Data Logs](https://my.artik.cloud/messages) in your user dashboard at https://my.artik.cloud
+- Visit the [Charts](https://my.artik.cloud/data) in your user dashboard at https://my.artik.cloud
 
 ![Screenshot](./images/screenshot-firesensor-datachart.png)
 
@@ -116,7 +129,7 @@ If you are not familiar with ARTIK Cloud, we have extensive documentation at htt
 
 The full ARTIK Cloud API specification can be found at https://developer.artik.cloud/documentation/api-reference/
 
-Peek into advanced sample applications at https://developer.artik.cloud/documentation/samples/
+Peek into advanced sample applications at [https://developer.artik.cloud/documentation/tutorials/code-samples](https://developer.artik.cloud/documentation/tutorials/code-samples/)
 
 To create and manage your services and devices on ARTIK Cloud, visit the Developer Dashboard at https://developer.artik.cloud
 
